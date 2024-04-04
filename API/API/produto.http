@@ -1,4 +1,11 @@
-### Listagem de produtos
+### Raiz da aplicação
+GET http://localhost:5008/
+
+### Listagem de Produtos
 GET http://localhost:5008/produto/listar
-### Cadastro de produtos
+
+### Busca de Produtos por nome
+GET http://localhost:5008/produto/buscar/Celular2
+
+### Cadastro de Produtos
 POST http://localhost:5008/produto/cadastrar
