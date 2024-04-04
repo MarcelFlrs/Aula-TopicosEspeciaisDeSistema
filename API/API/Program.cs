@@ -7,7 +7,7 @@ var app = builder.Build();
 List<Produto> produtos =
 [
     new Produto("Celular", "IOS", 5000),
-    new Produto("Celular2", "Android", 4000),
+    new Produto("Celular", "Android", 4000),
     new Produto("Televisão", "LG", 2300.5),
     new Produto("Placa de Vídeo", "NVIDIA", 2500),
 ];
@@ -37,7 +37,22 @@ app.MapGet("/produto/buscar/{nome}", ([FromRoute] string nome) =>
 );
 
 // POST: http://localhost:5008/produto/cadastrar
-app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
+app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}", 
+    ([FromRoute] string nome, [FromRoute] string descricao, [FromRoute] double valor) =>
+     {
+        //Preencher o objeto pelo construtor
+        Produto produto = new Produto(nome, descricao, valor);
+
+        //Preencher o objeto pelos atributos
+        produto.Nome = nome;
+        produto.Descricao = descricao;
+        produto.Valor = valor;
+
+        //Adicionar o objeto dentro da lista
+        produtos.Add(produto);
+        return Results.Created("", produto);
+    }
+);
 
 //EXERCÍCIOS
 //1) Cadastrar um produto 

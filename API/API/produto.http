@@ -8,4 +8,4 @@ GET http://localhost:5008/produto/listar
 GET http://localhost:5008/produto/buscar/Televisão
 
 ### Cadastro de Produtos
-POST http://localhost:5008/produto/cadastrar
+POST http://localhost:5008/produto/cadastrar/Pão/alimento/25
