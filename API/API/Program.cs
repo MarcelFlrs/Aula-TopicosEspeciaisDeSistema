@@ -14,14 +14,14 @@ List<Produto> produtos =
 
 //Funcionalidades da aplicação - EndPoints
 
-// GET: http://localhost:5124/
+// GET: http://localhost:5008/
 app.MapGet("/", () => "API de Produtos");
 
-// GET: http://localhost:5124/produto/listar
+// GET: http://localhost:5008/produto/listar
 app.MapGet("/produto/listar", () =>
     produtos);
 
-// GET: http://localhost:5124/produto/buscar/nomedoproduto
+// GET: http://localhost:5008/produto/buscar/nomedoproduto
 app.MapGet("/produto/buscar/{nome}", ([FromRoute] string nome) =>
     {
         for (int i = 0; i < produtos.Count; i++)
@@ -36,9 +36,8 @@ app.MapGet("/produto/buscar/{nome}", ([FromRoute] string nome) =>
     }
 );
 
-// POST: http://localhost:5124/produto/cadastrar
-app.MapPost("/produto/cadastrar", () =>
-    "Cadastro de produtos");
+// POST: http://localhost:5008/produto/cadastrar
+app.MapPost("/produto/cadastrar", () => "Cadastro de produtos");
 
 //EXERCÍCIOS
 //1) Cadastrar um produto 

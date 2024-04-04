@@ -5,7 +5,7 @@ GET http://localhost:5008/
 GET http://localhost:5008/produto/listar
 
 ### Busca de Produtos por nome
-GET http://localhost:5008/produto/buscar/Celular2
+GET http://localhost:5008/produto/buscar/Televisão
 
 ### Cadastro de Produtos
 POST http://localhost:5008/produto/cadastrar
