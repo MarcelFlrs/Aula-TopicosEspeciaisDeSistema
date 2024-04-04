@@ -36,10 +36,15 @@ app.MapGet("/produto/buscar/{nome}", ([FromRoute] string nome) =>
     }
 );
 
+
+
+
+//EXERCÍCIOS
+//1) Cadastrar um produto 
+//a) Pela URL
 // POST: http://localhost:5008/produto/cadastrar
-app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}", 
-    ([FromRoute] string nome, [FromRoute] string descricao, [FromRoute] double valor) =>
-     {
+app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}", ([FromRoute] string nome, [FromRoute] string descricao, [FromRoute] double valor) =>
+    {
         //Preencher o objeto pelo construtor
         Produto produto = new Produto(nome, descricao, valor);
 
@@ -54,11 +59,42 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}",
     }
 );
 
-//EXERCÍCIOS
-//1) Cadastrar um produto 
-//a) Pela URL
 //b) Pelo corpo
+app.MapPost("/produto/cadastrar", ([FromBody] Produto produto) =>
+    {
+        produtos.Add(produto);
+        return Results.Created("", produto);
+    }
+);
+
 //2) Remoção do produto
+app.MapDelete("/produto/deletar/{nome}", ([FromRoute] string nome) =>
+{
+    for (int i = 0; i < produtos.Count; i++)
+    {
+        if (produtos[i].Nome == nome)
+        {
+            produtos.RemoveAt(i);
+            return Results.Ok("Produto removido!");
+        }
+    }
+    return Results.NotFound("Produto não encontrado!");
+});
+
 //3) Alteração do produto
+app.MapPatch("/produto/alterar/{nome}/{descricao}", ([FromRoute] string nome, [FromRoute] string descricao) =>
+{
+    for (int i = 0; i < produtos.Count; i++)
+    {
+        if (produtos[i].Nome == nome)
+        {
+            produtos[i].Descricao = descricao;
+            return Results.Ok("Descrição alterada");
+        }
+    }
+    return Results.NotFound("Produto não encontrado!");
+});
+
+
 
 app.Run();
