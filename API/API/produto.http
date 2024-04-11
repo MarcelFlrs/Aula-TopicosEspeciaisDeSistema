@@ -20,5 +20,5 @@ Content-Type: application/json
 ### Remoção de um produto
 DELETE http://localhost:5008/produto/deletar/Feijão
 
-### Patchção de um produto
-PATCH  http://localhost:5008/produto/alterar/Feijão/AlimentoNovo
+### Alteração de um produto
+PATCH  http://localhost:5008/produto/alterar/Feijão/Alimento alterado
