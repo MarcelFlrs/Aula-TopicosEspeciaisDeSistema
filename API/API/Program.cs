@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDataContext>();
+
 var app = builder.Build();
 
 List<Produto> produtos =
@@ -19,8 +22,14 @@ List<Produto> produtos =
 app.MapGet("/", () => "API de Produtos");
 
 // GET: http://localhost:5008/produto/listar
-app.MapGet("/produto/listar", () =>
-    produtos);
+app.MapGet("/produto/listar", ([FromServices] AppDataContext ctx) =>
+{
+    if (ctx.TabelaProdutos.Any())
+    {
+        return Results.Ok(ctx.TabelaProdutos.ToList());
+    }
+    return Results.NotFound("Não existe produtos na tabela");
+});
 
 // GET: http://localhost:5008/produto/buscar/nomedoproduto
 app.MapGet("/produto/buscar/{nome}", ([FromRoute] string nome) =>
@@ -61,9 +70,11 @@ app.MapPost("/produto/cadastrar/{nome}/{descricao}/{valor}", ([FromRoute] string
 );
 
 //b) Pelo corpo
-app.MapPost("/produto/cadastrar", ([FromBody] Produto produto) =>
+app.MapPost("/produto/cadastrar", ([FromBody] Produto produto, [FromServices] AppDataContext ctx) =>
     {
-        produtos.Add(produto);
+        //Adicionar o objeto dentro da tabela no banco de dados
+        ctx.TabelaProdutos.Add(produto);
+        ctx.SaveChanges();
         return Results.Created("", produto);
     }
 );
