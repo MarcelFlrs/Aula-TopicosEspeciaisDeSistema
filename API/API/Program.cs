@@ -6,6 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDataContext>();
 
+//Configurar a política de CORS para liberar o acesso total
+builder.Services.AddCors(
+    options => options.AddPolicy("Acesso Total", configs => configs
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod())
+);
+
 var app = builder.Build();
 
 List<Produto> produtos =
@@ -110,5 +118,5 @@ app.MapPatch("/produto/alterar/{nome}/{descricao}", ([FromRoute] string nome, [F
 
 
 
-
+app.UseCors("Acesso Total");
 app.Run();

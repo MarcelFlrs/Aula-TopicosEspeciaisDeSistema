@@ -12,9 +12,9 @@ POST http://localhost:5008/produto/cadastrar
 Content-Type: application/json
 
 {
-    "nome" : "Feijão",
-    "descricao" : "Alimento",
-    "valor" : 20
+    "nome" : "camelo",
+    "descricao" : "pequeno",
+    "valor" : 204
 }
 
 ### Remoção de um produto
